@@ -1,118 +1,194 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>CV Nombre Apellido</title>
-    <link rel="icon" type="image/jpeg" href="imagenes/icono_usuario.jpg">
+<meta charset="UTF-8">
+<title>CV — Benjamin Rojo</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            font-family: 'Roboto', Arial, sans-serif;
-            background: linear-gradient(135deg, #6dd5ed, #2193b0);
-            padding: 40px 20px;
-        }
+<style>
+  :root {
+    --ink: #22303C;
+    --paper: #F2F5F0;
+    --teal: #2F6F63;
+    --teal-dark: #244F47;
+    --ochre: #C98A3E;
+    --line: #D8DED8;
+  }
 
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', Arial, sans-serif;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-        }
+  * { box-sizing: border-box; }
 
-        p {
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-        }
+  body {
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+  }
 
-        div {
-            box-sizing: border-box;
-            border: 2px solid #2193b0;
-            border-radius: 12px;
-            margin: 15px 0;
-            padding: 20px;
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 500px;
-        }
+  .cv {
+    display: flex;
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    box-shadow: 0 8px 30px rgba(34, 48, 60, 0.12);
+    min-height: 640px;
+  }
 
-        .cv-section {
-            background-color: #eaf6f8;
-            opacity: 0.92;
-        }
+  aside {
+    width: 34%;
+    background: var(--teal-dark);
+    color: #EAF1EE;
+    padding: 40px 28px;
+  }
 
-        #perfil {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            text-align: left;
-        }
+  .avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: var(--ochre);
+    color: var(--teal-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 34px;
+    margin-bottom: 20px;
+  }
 
-        .foto-perfil {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #2193b0;
-        }
+  aside h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 4px;
+    line-height: 1.15;
+  }
 
-        .curso {
-            background-color: #ffffff;
-        }
+  aside .rol {
+    font-size: 14px;
+    color: #B9D3CA;
+    margin: 0 0 28px;
+  }
 
-        .info-perfil {
-            border: none;
-            box-shadow: none;
-            margin: 0;
-            padding: 0;
-            width: auto;
-            max-width: none;
-        }
-    </style>
+  .side-block {
+    margin-bottom: 24px;
+  }
+
+  .side-block h3 {
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: #8FB6AB;
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+
+  .side-block p {
+    margin: 0 0 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #EAF1EE;
+  }
+
+  main {
+    flex: 1;
+    padding: 44px 40px;
+  }
+
+  section { margin-bottom: 32px; }
+  section:last-child { margin-bottom: 0; }
+
+  section h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--line);
+    color: var(--teal-dark);
+  }
+
+  .item { margin-bottom: 16px; }
+  .item:last-child { margin-bottom: 0; }
+
+  .item h4 {
+    margin: 0 0 2px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .item .meta {
+    font-size: 13px;
+    color: #6B7A73;
+    margin: 0;
+  }
+
+  .intro {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #3C4A44;
+  }
+
+  @media (max-width: 640px) {
+    .cv { flex-direction: column; margin: 0; }
+    aside, main { width: auto; }
+  }
+</style>
 </head>
 <body>
 
-<div id="perfil" class="cv-section">
-    <img src="./imagenes/icono_usuario.jpg" alt="Foto de perfil" class="foto-perfil">
-    <div class="info-perfil">
-        <h1>Santiago Monti</h1>
-        <h2>Ing. en Computación</h2>
-    </div>
-</div>
+<div class="cv">
+  <aside>
+    <div class="avatar">BR</div>
+    <h1>Benjamin Rojo</h1>
+    <p class="rol">Estudiante de Ingeniería Informática</p>
 
-<div class="cv-section">
-    <h3>Datos Personales</h3>
-    <p><span>Fecha de Nacimiento:</span> dd/mm/aaaa</p>
-    <p><span>Email:</span> 2511391@ucc.edu.ar</p>
-</div>
-
-<div class="cv-section">
-    <h3>Formación Académica</h3>
-    <p><span>Carrera:</span> Ingeniería en Computación</p>
-    <p><span>Universidad:</span> Universidad Católica de Córdoba</p>
-    <p><span>Año de Ingreso:</span> 2018</p>
-</div>
-
-<div class="cv-section">
-    <h3>Cursos</h3>
-
-    <div class="curso">
-        <h4>Nombre Curso 1</h4>
-        <p><span>Lugar:</span> Nombre Institución</p>
-        <p><span>Año:</span> XXXX </p>
+    <div class="side-block">
+      <h3>Contacto</h3>
+      <p>benjaminrojokerkebe@gmail.com</p>
     </div>
 
-    <div class="curso">
-        <h4>Nombre Curso 2</h4>
-        <p><span>Lugar:</span> Nombre Institución</p>
-        <p><span>Año:</span> XXXX </p>
+    <div class="side-block">
+      <h3>Datos personales</h3>
+      <p>Nacimiento: 09/04/2007</p>
     </div>
+
+    <div class="side-block">
+      <h3>Formación</h3>
+      <p>Ingeniería Informática</p>
+      <p>Universidad Católica de Córdoba</p>
+      <p>Ingreso: 2025</p>
+    </div>
+  </aside>
+
+  <main>
+    <section>
+      <h2>Perfil</h2>
+      <p class="intro">
+        Estudiante de Ingeniería Informática en la UCC, cursando el Taller de Desarrollo Web.
+        Interesado en el desarrollo frontend y en construir proyectos prácticos con HTML, CSS
+        y JavaScript.
+      </p>
+    </section>
+
+    <section>
+      <h2>Cursos y certificaciones</h2>
+      <div class="item">
+        <h4>Nombre del curso 1</h4>
+        <p class="meta">Institución — Año</p>
+      </div>
+      <div class="item">
+        <h4>Nombre del curso 2</h4>
+        <p class="meta">Institución — Año</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Habilidades</h2>
+      <p class="intro">HTML, CSS, Git &amp; GitHub, JavaScript (en curso)</p>
+    </section>
+  </main>
 </div>
 
 </body>
