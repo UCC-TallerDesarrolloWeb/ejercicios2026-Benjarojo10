@@ -169,12 +169,13 @@ const renderizarCarrito = () => {
     if (carrito.length === 0) {
         html = "<p>El carrito está vacío.</p>";
     } else {
-        carrito.forEach((producto) => {
+        carrito.forEach((producto, indice) => {
             html += `
                 <div class="item-carrito">
                     <img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
                     <h3>${producto.nombre}</h3>
                     <p class="precio">$${producto.precio}</p>
+                    <button class="btn-detalle" onclick="eliminarDelCarrito(${indice})">Eliminar</button>
                 </div>
             `;
         });
@@ -182,4 +183,31 @@ const renderizarCarrito = () => {
 
     // 3. Asignación a la UI
     document.getElementById("lista-carrito").innerHTML = html;
+};
+/**
+ * Borra todo el carrito del localStorage y actualiza la vista.
+ * @method vaciarCarrito
+ * @return {void}
+ */
+const vaciarCarrito = () => {
+    localStorage.removeItem("carrito");
+    renderizarCarrito();
+};
+
+/**
+ * Elimina un producto del carrito según su posición y actualiza la vista.
+ * @method eliminarDelCarrito
+ * @param {number} indice - Posición del producto dentro del carrito
+ * @return {void}
+ */
+const eliminarDelCarrito = (indice) => {
+    // 1. Variables
+    const carrito = obtenerCarrito();
+
+    // 2. Operaciones
+    carrito.splice(indice, 1); // saca 1 elemento desde la posición indice
+
+    // 3. Guardado y actualización de la UI
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    renderizarCarrito();
 };
