@@ -67,3 +67,23 @@ const convertirGR = (id, valor) => {
     document.getElementById("grados").value = grados;
     document.getElementById("radianes").value = radianes;
 };
+/**
+ * Muestra u oculta el div según el radio button seleccionado.
+ * @method mostrarOcultar
+ * @param {string} valor - Valor del radio elegido ("val_mostrar" o "val_ocultar")
+ * @return {void} No retorna valor; cambia el display del div
+ */
+const mostrarOcultar = (valor) => {
+    // 1. Variables
+    let display;
+
+    // 2. Operaciones
+    if (valor === "val_mostrar") {
+        display = "block";
+    } else if (valor === "val_ocultar") {
+        display = "none";
+    }
+
+    // 3. Asignación a la UI
+    document.getElementById("unDiv").style.display = display;
+};
