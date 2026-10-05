@@ -87,3 +87,40 @@ const mostrarOcultar = (valor) => {
     // 3. Asignación a la UI
     document.getElementById("unDiv").style.display = display;
 };
+/**
+ * Resuelve una operación matemática cuando ambos inputs tienen un número.
+ * Usa la letra de la operación para armar los ids (ej: 's' → nums1, nums2, totalS).
+ * @method operar
+ * @param {string} op - Operación: 's' suma, 'r' resta, 'm' multiplicación, 'd' división
+ * @return {void} No retorna valor; escribe el resultado en el input deshabilitado
+ */
+const operar = (op) => {
+    // 1. Variables
+    const valor1 = document.getElementById("num" + op + "1").value;
+    const valor2 = document.getElementById("num" + op + "2").value;
+    let num1, num2, resultado;
+
+    // 2. Operaciones
+    if (valor1 === "" || valor2 === "") {
+        return; // todavía falta completar uno de los dos
+    }
+
+    num1 = Number(valor1); // casteo String → Number
+    num2 = Number(valor2);
+
+    if (isNaN(num1) || isNaN(num2)) {
+        alert("Ingresá solo números");
+        resultado = "";
+    } else if (op === "s") {
+        resultado = num1 + num2;
+    } else if (op === "r") {
+        resultado = num1 - num2;
+    } else if (op === "m") {
+        resultado = num1 * num2;
+    } else if (op === "d") {
+        resultado = num2 === 0 ? "No se puede dividir por 0" : num1 / num2;
+    }
+
+    // 3. Asignación a la UI
+    document.getElementById("total" + op.toUpperCase()).value = resultado;
+};
