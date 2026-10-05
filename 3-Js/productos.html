@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos</title>
+    <link rel="stylesheet" href="productos.css">
+</head>
+<body onload="renderizarProductos(); actualizarContador()">
+<body>
+
+<header class="item1">
+    <h1>Tienda de Taekwondo</h1>
+</header>
+
+<nav class="item2">
+    <button class="btn btn-catalogo" onclick="location.href='productos.html'">Catálogo</button>
+    <button class="btn btn-carrito" onclick="location.href='carrito.html'">Carrito de Compras (<span id="contador">0</span>)</button>
+</nav>
+
+<aside class="item3">
+    <form name="filter" oninput="filtrarProductos()" onsubmit="return false">
+        <fieldset>
+    <legend>Ordenar</legend>
+    <select name="orden" id="orden">
+        <option value="">Sin orden</option>
+        <option value="precio-asc">Precio: menor a mayor</option>
+        <option value="precio-desc">Precio: mayor a menor</option>
+        <option value="nombre-asc">Nombre: A-Z</option>
+        <option value="nombre-desc">Nombre: Z-A</option>
+    </select>
+</fieldset>
+        <fieldset>
+            <legend>Búsqueda</legend>
+            <label for="search">Palabra:</label>
+            <input type="text" name="search" id="search" placeholder="Ej: guantes">
+        </fieldset>
+
+        <fieldset>
+            <legend>Precios</legend>
+            <p>
+                <label for="precio-min">Mínimo:</label>
+                <input type="number" name="minimo" id="precio-min" min="0" placeholder="0">
+            </p>
+            <p>
+                <label for="precio-max">Máximo:</label>
+                <input type="number" name="maximo" id="precio-max" min="0" placeholder="Sin límite">
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Marca</legend>
+            <select name="marca" id="marca">
+                <option value="">Todas</option>
+                <option value="Gran Marc">Gran Marc</option>
+                <option value="Daedo">Daedo</option>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>Tipo de productos</legend>
+            <p>
+                <input type="checkbox" name="tipo" id="protectores" value="protectores">
+                <label for="protectores">Protectores</label>
+            </p>
+            <p>
+                <input type="checkbox" name="tipo" id="entrenamiento" value="entrenamiento">
+                <label for="entrenamiento">Entrenamiento</label>
+            </p>
+            <p>
+                <input type="checkbox" name="tipo" id="dobok" value="dobok">
+                <label for="dobok">Dobok</label>
+            </p>
+        </fieldset>
+    </form>
+</aside>
+
+<main class="item4" id="catalogo"></main>
+<footer class="item5">Info de Contacto</footer>
+
+<dialog id="dialogo">
+    <div id="detalle"></div>
+    <button class="btn-detalle" onclick="cerrarDialog()">Cerrar</button>
+</dialog>
+
+<script src="tienda.js"></script>
+</body>
+</html>

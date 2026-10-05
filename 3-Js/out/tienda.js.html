@@ -1,4 +1,32 @@
-const productos = [
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: tienda.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: tienda.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const productos = [
   {
     nombre: "Cabezal Sparring",
     description: "Cabezal de Sparring.",
@@ -105,19 +133,19 @@ const renderizarProductos = (lista = productos) => {
 
     // 2. Operaciones
     if (lista.length === 0) {
-        html = "<p>No hay productos que coincidan con la búsqueda.</p>";
+        html = "&lt;p>No hay productos que coincidan con la búsqueda.&lt;/p>";
     }
 
     lista.forEach((producto) => {
         const indice = productos.indexOf(producto); // posición en el array original
         html += `
-            <div class="tarjeta">
-                <img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
-                <h3>${producto.nombre}</h3>
-                <p class="precio">${formatearPrecio(producto.precio)}</p>
-                <button class="btn-detalle" onclick="mostrarDialog(${indice})">Ver detalle de Producto</button>
-                <button class="btn-detalle" onclick="agregarAlCarrito(${indice})">Agregar al carrito</button>
-            </div>
+            &lt;div class="tarjeta">
+                &lt;img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
+                &lt;h3>${producto.nombre}&lt;/h3>
+                &lt;p class="precio">${formatearPrecio(producto.precio)}&lt;/p>
+                &lt;button class="btn-detalle" onclick="mostrarDialog(${indice})">Ver detalle de Producto&lt;/button>
+                &lt;button class="btn-detalle" onclick="agregarAlCarrito(${indice})">Agregar al carrito&lt;/button>
+            &lt;/div>
         `;
     });
 
@@ -146,12 +174,12 @@ const filtrarProductos = () => {
     const filtrados = productos.filter((producto) =>
         // Por palabra (en nombre o descripción)
         (producto.nombre.toLowerCase().includes(texto) ||
-            producto.description.toLowerCase().includes(texto)) &&
+            producto.description.toLowerCase().includes(texto)) &amp;&amp;
         // Por rango de precio
-        producto.precio >= minimo &&
-        producto.precio <= maximo &&
+        producto.precio >= minimo &amp;&amp;
+        producto.precio &lt;= maximo &amp;&amp;
         // Por marca ("" = todas)
-        (marca === "" || producto.marca === marca) &&
+        (marca === "" || producto.marca === marca) &amp;&amp;
         // Por categoría (ninguna tildada = todas)
         (categorias.length === 0 || categorias.includes(producto.categoria.toLowerCase()))
     );
@@ -175,14 +203,14 @@ const mostrarDialog = (indice) => {
 
     // 2. Operaciones: armo el contenido del detalle
     html = `
-        <h2>${producto.nombre}</h2>
-        <img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
-        <p>${producto.description}</p>
-        <p><strong>Categoría:</strong> ${producto.categoria}</p>
-        <p><strong>Marca:</strong> ${producto.marca}</p>
-        <p><strong>Talles:</strong> ${producto.talle.join(", ")}</p>
-        <p class="precio">${formatearPrecio(producto.precio)}</p>
-        <p><a href="${producto.web}" target="_blank">Ver en la web del fabricante</a></p>
+        &lt;h2>${producto.nombre}&lt;/h2>
+        &lt;img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
+        &lt;p>${producto.description}&lt;/p>
+        &lt;p>&lt;strong>Categoría:&lt;/strong> ${producto.categoria}&lt;/p>
+        &lt;p>&lt;strong>Marca:&lt;/strong> ${producto.marca}&lt;/p>
+        &lt;p>&lt;strong>Talles:&lt;/strong> ${producto.talle.join(", ")}&lt;/p>
+        &lt;p class="precio">${formatearPrecio(producto.precio)}&lt;/p>
+        &lt;p>&lt;a href="${producto.web}" target="_blank">Ver en la web del fabricante&lt;/a>&lt;/p>
     `;
 
     // 3. Asignación a la UI
@@ -249,20 +277,20 @@ const renderizarCarrito = () => {
 
     // 2. Operaciones
     if (carrito.length === 0) {
-        html = "<p>El carrito está vacío.</p>";
+        html = "&lt;p>El carrito está vacío.&lt;/p>";
     } else {
         carrito.forEach((item, indice) => {
             const subtotal = item.precio * item.cantidad;
             total += subtotal;
             html += `
-                <div class="item-carrito">
-                    <img src="${URL_IMAGENES}${item.imagen}" alt="${item.nombre}">
-                    <h3>${item.nombre}</h3>
-                    <p>Cantidad: <strong>${item.cantidad}</strong></p>
-                    <p>${formatearPrecio(item.precio)} c/u</p>
-                    <p class="precio">${formatearPrecio(subtotal)}</p>
-                    <button class="btn-detalle" onclick="eliminarDelCarrito(${indice})">Eliminar</button>
-                </div>
+                &lt;div class="item-carrito">
+                    &lt;img src="${URL_IMAGENES}${item.imagen}" alt="${item.nombre}">
+                    &lt;h3>${item.nombre}&lt;/h3>
+                    &lt;p>Cantidad: &lt;strong>${item.cantidad}&lt;/strong>&lt;/p>
+                    &lt;p>${formatearPrecio(item.precio)} c/u&lt;/p>
+                    &lt;p class="precio">${formatearPrecio(subtotal)}&lt;/p>
+                    &lt;button class="btn-detalle" onclick="eliminarDelCarrito(${indice})">Eliminar&lt;/button>
+                &lt;/div>
             `;
         });
     }
@@ -326,4 +354,26 @@ const ordenarProductos = (lista, criterio) => {
 
     // 3. Resultado
     return copia;
-};
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#actualizarContador">actualizarContador</a></li><li><a href="global.html#agregarAlCarrito">agregarAlCarrito</a></li><li><a href="global.html#cerrarDialog">cerrarDialog</a></li><li><a href="global.html#convertirGR">convertirGR</a></li><li><a href="global.html#convertirUnidades">convertirUnidades</a></li><li><a href="global.html#eliminarDelCarrito">eliminarDelCarrito</a></li><li><a href="global.html#filtrarProductos">filtrarProductos</a></li><li><a href="global.html#formatearPrecio">formatearPrecio</a></li><li><a href="global.html#mostrarDialog">mostrarDialog</a></li><li><a href="global.html#mostrarOcultar">mostrarOcultar</a></li><li><a href="global.html#obtenerCarrito">obtenerCarrito</a></li><li><a href="global.html#operar">operar</a></li><li><a href="global.html#ordenarProductos">ordenarProductos</a></li><li><a href="global.html#renderizarCarrito">renderizarCarrito</a></li><li><a href="global.html#renderizarProductos">renderizarProductos</a></li><li><a href="global.html#vaciarCarrito">vaciarCarrito</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Oct 05 2026 11:09:10 GMT-0300 (Argentina Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
