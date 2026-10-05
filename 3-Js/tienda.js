@@ -81,6 +81,7 @@ const renderizarProductos = () => {
                 <h3>${producto.nombre}</h3>
                 <p class="precio">$${producto.precio}</p>
                 <button class="btn-detalle" onclick="mostrarDialog(${indice})">Ver detalle de Producto</button>
+                <button class="btn-detalle" onclick="agregarAlCarrito(${indice})">Agregar al carrito</button>
             </div>
         `;
     });
@@ -124,4 +125,61 @@ const mostrarDialog = (indice) => {
  */
 const cerrarDialog = () => {
     document.getElementById("dialogo").close();
+};
+/**
+ * Lee el carrito guardado en localStorage.
+ * @method obtenerCarrito
+ * @return {Array} Array de productos del carrito (vacío si no hay nada)
+ */
+const obtenerCarrito = () => {
+    return JSON.parse(localStorage.getItem("carrito")) || [];
+};
+
+/**
+ * Agrega un producto al carrito y lo guarda en localStorage.
+ * @method agregarAlCarrito
+ * @param {number} indice - Posición del producto en el array productos
+ * @return {void}
+ */
+const agregarAlCarrito = (indice) => {
+    // 1. Variables
+    const carrito = obtenerCarrito();
+    const producto = productos[indice];
+
+    // 2. Operaciones
+    carrito.push(producto);
+
+    // 3. Guardado y aviso
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    alert(producto.nombre + " se agregó al carrito");
+};
+
+/**
+ * Muestra en carrito.html el listado de productos guardados.
+ * Se ejecuta en el onload del body de carrito.html.
+ * @method renderizarCarrito
+ * @return {void}
+ */
+const renderizarCarrito = () => {
+    // 1. Variables
+    const carrito = obtenerCarrito();
+    let html = "";
+
+    // 2. Operaciones
+    if (carrito.length === 0) {
+        html = "<p>El carrito está vacío.</p>";
+    } else {
+        carrito.forEach((producto) => {
+            html += `
+                <div class="item-carrito">
+                    <img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
+                    <h3>${producto.nombre}</h3>
+                    <p class="precio">$${producto.precio}</p>
+                </div>
+            `;
+        });
+    }
+
+    // 3. Asignación a la UI
+    document.getElementById("lista-carrito").innerHTML = html;
 };

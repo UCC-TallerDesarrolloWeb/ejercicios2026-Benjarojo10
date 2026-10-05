@@ -144,3 +144,29 @@ dialog img {
     height: 200px;
     object-fit: contain;
 }
+.main-carrito {
+    grid-column: 1 / -1;
+    display: block;
+}
+
+.item-carrito {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+}
+
+.item-carrito img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.item-carrito h3 {
+    flex: 1;
+    margin: 0;
+}
