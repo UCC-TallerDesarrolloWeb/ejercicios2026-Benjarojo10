@@ -6,50 +6,64 @@
  * @param {string} valor - Valor ingresado por el usuario en ese campo
  * @return {void} No retorna valor; escribe los resultados en los inputs
  */
-function convertirUnidades(id, valor) {
+const convertirUnidades = (id, valor) => {
+    // 1. Variables
+    let metro, pulgada, pie, yarda;
+
+    // 2. Operaciones
     if (isNaN(valor)) {
         alert("Se ingresó un valor incorrecto en: " + id);
-        document.getElementById("metro").value = "";
-        document.getElementById("pulgada").value = "";
-        document.getElementById("pie").value = "";
-        document.getElementById("yarda").value = "";
-        return;
+        metro = "";
+        pulgada = "";
+        pie = "";
+        yarda = "";
+    } else {
+        if (id === "metro") {
+            metro = Number(valor);
+        } else if (id === "pulgada") {
+            metro = Number(valor) / 39.3701;
+        } else if (id === "pie") {
+            metro = Number(valor) / 3.28084;
+        } else if (id === "yarda") {
+            metro = Number(valor) / 1.09361;
+        }
+        pulgada = metro * 39.3701;
+        pie = metro * 3.28084;
+        yarda = metro * 1.09361;
     }
 
-    let metro;
-    if (id === "metro") {
-        metro = Number(valor);
-    } else if (id === "pulgada") {
-        metro = valor / 39.3701;
-    } else if (id === "pie") {
-        metro = valor / 3.28084;
-    } else if (id === "yarda") {
-        metro = valor / 1.09361;
-    }
-
+    // 3. Asignación a la UI
     document.getElementById("metro").value = metro;
-    document.getElementById("pulgada").value = metro * 39.3701;
-    document.getElementById("pie").value = metro * 3.28084;
-    document.getElementById("yarda").value = metro * 1.09361;
-}
+    document.getElementById("pulgada").value = pulgada;
+    document.getElementById("pie").value = pie;
+    document.getElementById("yarda").value = yarda;
+};
+
 /**
  * Convierte un ángulo entre grados y radianes usando Math.PI.
  * @method convertirGR
  * @param {string} id - Id del campo que cambió ("grados" o "radianes")
  * @param {string} valor - Valor ingresado por el usuario en ese campo
- * @return {void} No retorna valor; escribe el resultado en el otro input
+ * @return {void} No retorna valor; escribe los resultados en los inputs
  */
-function convertirGR(id, valor) {
+const convertirGR = (id, valor) => {
+    // 1. Variables
+    let grados, radianes;
+
+    // 2. Operaciones
     if (isNaN(valor)) {
         alert("Se ingresó un valor incorrecto en: " + id);
-        document.getElementById("grados").value = "";
-        document.getElementById("radianes").value = "";
-        return;
+        grados = "";
+        radianes = "";
+    } else if (id === "grados") {
+        grados = Number(valor);
+        radianes = grados * Math.PI / 180;
+    } else if (id === "radianes") {
+        radianes = Number(valor);
+        grados = radianes * 180 / Math.PI;
     }
 
-    if (id === "grados") {
-        document.getElementById("radianes").value = valor * Math.PI / 180;
-    } else if (id === "radianes") {
-        document.getElementById("grados").value = valor * 180 / Math.PI;
-    }
-}
+    // 3. Asignación a la UI
+    document.getElementById("grados").value = grados;
+    document.getElementById("radianes").value = radianes;
+};
