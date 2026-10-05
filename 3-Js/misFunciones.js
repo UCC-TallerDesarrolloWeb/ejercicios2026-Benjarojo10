@@ -129,5 +129,5 @@ const operar = (op) => {
     }
 
     // 3. Asignación a la UI
-    document.getElementById("total" + op.toUpperCase()).value = resultado;
+    document.getElementById("total" + op.toUpperCase()).innerHTML = resultado;
 };
