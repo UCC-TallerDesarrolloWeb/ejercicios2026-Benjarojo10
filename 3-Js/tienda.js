@@ -126,7 +126,8 @@ const renderizarProductos = (lista = productos) => {
 };
 
 /**
- * Filtra el catálogo por palabra, rango de precio, marca y categoría.
+ * Filtra el catálogo por palabra, rango de precio, marca y categoría,
+ * y después lo ordena según lo elegido en el select.
  * Se ejecuta cada vez que cambia algún campo del formulario de filtros.
  * @method filtrarProductos
  * @return {void}
@@ -139,6 +140,7 @@ const filtrarProductos = () => {
     const marca = document.getElementById("marca").value;
     const categorias = Array.from(document.querySelectorAll('input[name="tipo"]:checked'))
         .map((checkbox) => checkbox.value);
+    const orden = document.getElementById("orden").value;
 
     // 2. Operaciones
     const filtrados = productos.filter((producto) =>
@@ -154,8 +156,8 @@ const filtrarProductos = () => {
         (categorias.length === 0 || categorias.includes(producto.categoria.toLowerCase()))
     );
 
-    // 3. Asignación a la UI
-    renderizarProductos(filtrados);
+    // 3. Ordenar y asignar a la UI
+    renderizarProductos(ordenarProductos(filtrados, orden));
 };
 
 /* ===================== DIALOG ===================== */
@@ -297,4 +299,31 @@ const eliminarDelCarrito = (indice) => {
     // 3. Guardado y actualización de la UI
     localStorage.setItem("carrito", JSON.stringify(carrito));
     renderizarCarrito();
+};
+/* ===================== ORDEN ===================== */
+
+/**
+ * Devuelve una copia de la lista ordenada según el criterio elegido.
+ * @method ordenarProductos
+ * @param {Array} lista - Productos a ordenar
+ * @param {string} criterio - "precio-asc", "precio-desc", "nombre-asc", "nombre-desc" o "" (sin orden)
+ * @return {Array} Nueva lista ordenada
+ */
+const ordenarProductos = (lista, criterio) => {
+    // 1. Variables: copio la lista para no modificar el array original
+    const copia = [...lista];
+
+    // 2. Operaciones
+    if (criterio === "precio-asc") {
+        copia.sort((a, b) => a.precio - b.precio);
+    } else if (criterio === "precio-desc") {
+        copia.sort((a, b) => b.precio - a.precio);
+    } else if (criterio === "nombre-asc") {
+        copia.sort((a, b) => a.nombre.localeCompare(b.nombre));
+    } else if (criterio === "nombre-desc") {
+        copia.sort((a, b) => b.nombre.localeCompare(a.nombre));
+    }
+
+    // 3. Resultado
+    return copia;
 };

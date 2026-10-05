@@ -20,6 +20,16 @@
 <aside class="item3">
     <form name="filter" oninput="filtrarProductos()" onsubmit="return false">
         <fieldset>
+    <legend>Ordenar</legend>
+    <select name="orden" id="orden">
+        <option value="">Sin orden</option>
+        <option value="precio-asc">Precio: menor a mayor</option>
+        <option value="precio-desc">Precio: mayor a menor</option>
+        <option value="nombre-asc">Nombre: A-Z</option>
+        <option value="nombre-desc">Nombre: Z-A</option>
+    </select>
+</fieldset>
+        <fieldset>
             <legend>Búsqueda</legend>
             <label for="search">Palabra:</label>
             <input type="text" name="search" id="search" placeholder="Ej: guantes">
