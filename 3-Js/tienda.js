@@ -64,6 +64,31 @@ const productos = [
 
 const URL_IMAGENES = "https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/";
 
+/* ===================== UTILIDADES ===================== */
+
+/**
+ * Formatea un número como precio argentino: $3.123,45
+ * @method formatearPrecio
+ * @param {number} precio - Precio a formatear
+ * @return {string} Precio con formato $X.XXX,XX
+ */
+const formatearPrecio = (precio) => {
+    const formato = new Intl.NumberFormat("es-AR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
+    return "$" + formato.format(precio);
+};
+
+/**
+ * Actualiza el número que aparece al lado del botón del carrito.
+ * @method actualizarContador
+ * @return {void}
+ */
+const actualizarContador = () => {
+    document.getElementById("contador").innerHTML = obtenerCarrito().length;
+};
+
 /* ===================== CATÁLOGO ===================== */
 
 /**
@@ -88,7 +113,7 @@ const renderizarProductos = (lista = productos) => {
             <div class="tarjeta">
                 <img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
                 <h3>${producto.nombre}</h3>
-                <p class="precio">$${producto.precio}</p>
+                <p class="precio">${formatearPrecio(producto.precio)}</p>
                 <button class="btn-detalle" onclick="mostrarDialog(${indice})">Ver detalle de Producto</button>
                 <button class="btn-detalle" onclick="agregarAlCarrito(${indice})">Agregar al carrito</button>
             </div>
@@ -153,7 +178,7 @@ const mostrarDialog = (indice) => {
         <p><strong>Categoría:</strong> ${producto.categoria}</p>
         <p><strong>Marca:</strong> ${producto.marca}</p>
         <p><strong>Talles:</strong> ${producto.talle.join(", ")}</p>
-        <p class="precio">$${producto.precio}</p>
+        <p class="precio">${formatearPrecio(producto.precio)}</p>
         <p><a href="${producto.web}" target="_blank">Ver en la web del fabricante</a></p>
     `;
 
@@ -196,8 +221,9 @@ const agregarAlCarrito = (indice) => {
     // 2. Operaciones
     carrito.push(producto);
 
-    // 3. Guardado y aviso
+    // 3. Guardado, contador y aviso
     localStorage.setItem("carrito", JSON.stringify(carrito));
+    actualizarContador();
     alert(producto.nombre + " se agregó al carrito");
 };
 
@@ -221,7 +247,7 @@ const renderizarCarrito = () => {
                 <div class="item-carrito">
                     <img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
                     <h3>${producto.nombre}</h3>
-                    <p class="precio">$${producto.precio}</p>
+                    <p class="precio">${formatearPrecio(producto.precio)}</p>
                     <button class="btn-detalle" onclick="eliminarDelCarrito(${indice})">Eliminar</button>
                 </div>
             `;
@@ -230,6 +256,7 @@ const renderizarCarrito = () => {
 
     // 3. Asignación a la UI
     document.getElementById("lista-carrito").innerHTML = html;
+    actualizarContador();
 };
 
 /**

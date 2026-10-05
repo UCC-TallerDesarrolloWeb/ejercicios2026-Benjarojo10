@@ -5,7 +5,7 @@
     <title>Productos</title>
     <link rel="stylesheet" href="productos.css">
 </head>
-<body onload="renderizarProductos()">
+<body onload="renderizarProductos(); actualizarContador()">
 <body>
 
 <header class="item1">
@@ -14,7 +14,7 @@
 
 <nav class="item2">
     <button class="btn btn-catalogo" onclick="location.href='productos.html'">Catálogo</button>
-    <button class="btn btn-carrito" onclick="location.href='carrito.html'">Carrito de Compras</button>
+    <button class="btn btn-carrito" onclick="location.href='carrito.html'">Carrito de Compras (<span id="contador">0</span>)</button>
 </nav>
 
 <aside class="item3">
