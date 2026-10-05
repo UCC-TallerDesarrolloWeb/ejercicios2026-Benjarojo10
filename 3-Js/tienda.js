@@ -61,3 +61,20 @@ const productos = [
     imagen: "protectores-manos.webp",
   },
 ];
+/**
+ * Abre el dialog del detalle de producto.
+ * @method mostrarDialog
+ * @return {void}
+ */
+const mostrarDialog = () => {
+    document.getElementById("dialogo").showModal();
+};
+
+/**
+ * Cierra el dialog del detalle de producto.
+ * @method cerrarDialog
+ * @return {void}
+ */
+const cerrarDialog = () => {
+    document.getElementById("dialogo").close();
+};
