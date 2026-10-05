@@ -61,20 +61,29 @@ const productos = [
     imagen: "protectores-manos.webp",
   },
 ];
+
 const URL_IMAGENES = "https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/";
 
+/* ===================== CATÁLOGO ===================== */
+
 /**
- * Crea una tarjeta por cada producto del array y la muestra en el catálogo.
- * Se ejecuta en el onload del body.
+ * Crea una tarjeta por cada producto de la lista y la muestra en el catálogo.
+ * Si no recibe lista, muestra todos los productos.
  * @method renderizarProductos
+ * @param {Array} lista - Productos a mostrar (por defecto, todos)
  * @return {void}
  */
-const renderizarProductos = () => {
+const renderizarProductos = (lista = productos) => {
     // 1. Variables
     let html = "";
 
-    // 2. Operaciones: armo una tarjeta por producto
-    productos.forEach((producto, indice) => {
+    // 2. Operaciones
+    if (lista.length === 0) {
+        html = "<p>No hay productos que coincidan con la búsqueda.</p>";
+    }
+
+    lista.forEach((producto) => {
+        const indice = productos.indexOf(producto); // posición en el array original
         html += `
             <div class="tarjeta">
                 <img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
@@ -89,6 +98,41 @@ const renderizarProductos = () => {
     // 3. Asignación a la UI
     document.getElementById("catalogo").innerHTML = html;
 };
+
+/**
+ * Filtra el catálogo por palabra, rango de precio, marca y categoría.
+ * Se ejecuta cada vez que cambia algún campo del formulario de filtros.
+ * @method filtrarProductos
+ * @return {void}
+ */
+const filtrarProductos = () => {
+    // 1. Variables
+    const texto = document.getElementById("search").value.toLowerCase();
+    const minimo = Number(document.getElementById("precio-min").value) || 0;
+    const maximo = Number(document.getElementById("precio-max").value) || Infinity;
+    const marca = document.getElementById("marca").value;
+    const categorias = Array.from(document.querySelectorAll('input[name="tipo"]:checked'))
+        .map((checkbox) => checkbox.value);
+
+    // 2. Operaciones
+    const filtrados = productos.filter((producto) =>
+        // Por palabra (en nombre o descripción)
+        (producto.nombre.toLowerCase().includes(texto) ||
+            producto.description.toLowerCase().includes(texto)) &&
+        // Por rango de precio
+        producto.precio >= minimo &&
+        producto.precio <= maximo &&
+        // Por marca ("" = todas)
+        (marca === "" || producto.marca === marca) &&
+        // Por categoría (ninguna tildada = todas)
+        (categorias.length === 0 || categorias.includes(producto.categoria.toLowerCase()))
+    );
+
+    // 3. Asignación a la UI
+    renderizarProductos(filtrados);
+};
+
+/* ===================== DIALOG ===================== */
 
 /**
  * Abre el dialog con el detalle del producto seleccionado.
@@ -126,6 +170,9 @@ const mostrarDialog = (indice) => {
 const cerrarDialog = () => {
     document.getElementById("dialogo").close();
 };
+
+/* ===================== CARRITO ===================== */
+
 /**
  * Lee el carrito guardado en localStorage.
  * @method obtenerCarrito
@@ -184,6 +231,7 @@ const renderizarCarrito = () => {
     // 3. Asignación a la UI
     document.getElementById("lista-carrito").innerHTML = html;
 };
+
 /**
  * Borra todo el carrito del localStorage y actualiza la vista.
  * @method vaciarCarrito
