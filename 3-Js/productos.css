@@ -178,3 +178,9 @@ aside fieldset {
 aside input[type="number"] {
     width: 90px;
 }
+.total-carrito {
+    text-align: right;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-top: 20px;
+}

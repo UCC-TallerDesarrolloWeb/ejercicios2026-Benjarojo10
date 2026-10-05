@@ -81,12 +81,13 @@ const formatearPrecio = (precio) => {
 };
 
 /**
- * Actualiza el número que aparece al lado del botón del carrito.
+ * Actualiza el número del botón del carrito con la suma de todas las cantidades.
  * @method actualizarContador
  * @return {void}
  */
 const actualizarContador = () => {
-    document.getElementById("contador").innerHTML = obtenerCarrito().length;
+    const totalUnidades = obtenerCarrito().reduce((suma, item) => suma + item.cantidad, 0);
+    document.getElementById("contador").innerHTML = totalUnidades;
 };
 
 /* ===================== CATÁLOGO ===================== */
@@ -201,14 +202,14 @@ const cerrarDialog = () => {
 /**
  * Lee el carrito guardado en localStorage.
  * @method obtenerCarrito
- * @return {Array} Array de productos del carrito (vacío si no hay nada)
+ * @return {Array} Array de items del carrito (cada uno con su cantidad)
  */
 const obtenerCarrito = () => {
     return JSON.parse(localStorage.getItem("carrito")) || [];
 };
 
 /**
- * Agrega un producto al carrito y lo guarda en localStorage.
+ * Agrega un producto al carrito. Si ya estaba, le suma 1 a la cantidad.
  * @method agregarAlCarrito
  * @param {number} indice - Posición del producto en el array productos
  * @return {void}
@@ -217,9 +218,14 @@ const agregarAlCarrito = (indice) => {
     // 1. Variables
     const carrito = obtenerCarrito();
     const producto = productos[indice];
+    const existente = carrito.find((item) => item.nombre === producto.nombre);
 
     // 2. Operaciones
-    carrito.push(producto);
+    if (existente) {
+        existente.cantidad++;
+    } else {
+        carrito.push({ ...producto, cantidad: 1 });
+    }
 
     // 3. Guardado, contador y aviso
     localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -228,7 +234,7 @@ const agregarAlCarrito = (indice) => {
 };
 
 /**
- * Muestra en carrito.html el listado de productos guardados.
+ * Muestra en carrito.html el listado de productos con cantidad, subtotal y total.
  * Se ejecuta en el onload del body de carrito.html.
  * @method renderizarCarrito
  * @return {void}
@@ -237,17 +243,22 @@ const renderizarCarrito = () => {
     // 1. Variables
     const carrito = obtenerCarrito();
     let html = "";
+    let total = 0;
 
     // 2. Operaciones
     if (carrito.length === 0) {
         html = "<p>El carrito está vacío.</p>";
     } else {
-        carrito.forEach((producto, indice) => {
+        carrito.forEach((item, indice) => {
+            const subtotal = item.precio * item.cantidad;
+            total += subtotal;
             html += `
                 <div class="item-carrito">
-                    <img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
-                    <h3>${producto.nombre}</h3>
-                    <p class="precio">${formatearPrecio(producto.precio)}</p>
+                    <img src="${URL_IMAGENES}${item.imagen}" alt="${item.nombre}">
+                    <h3>${item.nombre}</h3>
+                    <p>Cantidad: <strong>${item.cantidad}</strong></p>
+                    <p>${formatearPrecio(item.precio)} c/u</p>
+                    <p class="precio">${formatearPrecio(subtotal)}</p>
                     <button class="btn-detalle" onclick="eliminarDelCarrito(${indice})">Eliminar</button>
                 </div>
             `;
@@ -256,6 +267,7 @@ const renderizarCarrito = () => {
 
     // 3. Asignación a la UI
     document.getElementById("lista-carrito").innerHTML = html;
+    document.getElementById("total").innerHTML = "Total a pagar: " + formatearPrecio(total);
     actualizarContador();
 };
 
