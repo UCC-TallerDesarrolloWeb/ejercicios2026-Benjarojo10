@@ -5,6 +5,7 @@
     <title>Productos</title>
     <link rel="stylesheet" href="productos.css">
 </head>
+<body onload="renderizarProductos()">
 <body>
 
 <header class="item1">
@@ -52,44 +53,7 @@
     </form>
 </aside>
 
-<main class="item4">
-    <div class="tarjeta">
-        <img src="https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/cabezal-cerrado.webp" alt="Cabezal Sparring">
-        <h3>Cabezal Sparring</h3>
-        <button class="btn-detalle" onclick="mostrarDialog()">Ver detalle de Producto</button>
-    </div>
-
-    <div class="tarjeta">
-        <img src="https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/dobok.webp" alt="Dobok Dan">
-        <h3>Dobok Dan</h3>
-        <button class="btn-detalle" onclick="mostrarDialog()">Ver detalle de Producto</button>
-    </div>
-
-    <div class="tarjeta">
-        <img src="https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/escudo-potencia.webp" alt="Escudo de Potencia">
-        <h3>Escudo de Potencia</h3>
-        <button class="btn-detalle" onclick="mostrarDialog()">Ver detalle de Producto</button>
-    </div>
-
-    <div class="tarjeta">
-        <img src="https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/foco-con-dedos.webp" alt="Par de focos redondos">
-        <h3>Par de focos redondos</h3>
-        <button class="btn-detalle" onclick="mostrarDialog()">Ver detalle de Producto</button>
-    </div>
-
-    <div class="tarjeta">
-        <img src="https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/protectores-manos.webp" alt="Guantes 10 onzas">
-        <h3>Guantes 10 onzas</h3>
-        <button class="btn-detalle" onclick="mostrarDialog()">Ver detalle de Producto</button>
-    </div>
-
-    <div class="tarjeta">
-        <img src="https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/protectores-manos.webp" alt="Protectores Pie">
-        <h3>Protectores Pie</h3>
-        <button class="btn-detalle" onclick="mostrarDialog()">Ver detalle de Producto</button>
-    </div>
-</main>
-
+<main class="item4" id="catalogo"></main>
 <footer class="item5">Info de Contacto</footer>
 
 <dialog id="dialogo">

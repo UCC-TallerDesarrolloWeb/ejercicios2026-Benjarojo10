@@ -78,3 +78,30 @@ const mostrarDialog = () => {
 const cerrarDialog = () => {
     document.getElementById("dialogo").close();
 };
+const URL_IMAGENES = "https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/";
+
+/**
+ * Crea una tarjeta por cada producto del array y la muestra en el catálogo.
+ * Se ejecuta en el onload del body.
+ * @method renderizarProductos
+ * @return {void}
+ */
+const renderizarProductos = () => {
+    // 1. Variables
+    let html = "";
+
+    // 2. Operaciones: armo una tarjeta por producto
+    productos.forEach((producto) => {
+        html += `
+            <div class="tarjeta">
+                <img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
+                <h3>${producto.nombre}</h3>
+                <p class="precio">$${producto.precio}</p>
+                <button class="btn-detalle" onclick="mostrarDialog()">Ver detalle de Producto</button>
+            </div>
+        `;
+    });
+
+    // 3. Asignación a la UI
+    document.getElementById("catalogo").innerHTML = html;
+};
