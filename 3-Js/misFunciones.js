@@ -1,6 +1,7 @@
 /**
  * Convierte un valor de longitud entre metro, pulgada, pie y yarda.
  * Pasa el valor ingresado a metros y desde ahí calcula las demás unidades.
+ * Acepta coma o punto decimal y muestra los resultados con 2 decimales.
  * @method convertirUnidades
  * @param {string} id - Id del campo que cambió ("metro", "pulgada", "pie" o "yarda")
  * @param {string} valor - Valor ingresado por el usuario en ese campo
@@ -9,6 +10,7 @@
 const convertirUnidades = (id, valor) => {
     // 1. Variables
     let metro, pulgada, pie, yarda;
+    valor = valor.replace(",", "."); // 1,5 → 1.5
 
     // 2. Operaciones
     if (isNaN(valor)) {
@@ -27,9 +29,10 @@ const convertirUnidades = (id, valor) => {
         } else if (id === "yarda") {
             metro = Number(valor) / 1.09361;
         }
-        pulgada = metro * 39.3701;
-        pie = metro * 3.28084;
-        yarda = metro * 1.09361;
+        pulgada = (metro * 39.3701).toFixed(2);
+        pie = (metro * 3.28084).toFixed(2);
+        yarda = (metro * 1.09361).toFixed(2);
+        metro = metro.toFixed(2);
     }
 
     // 3. Asignación a la UI
@@ -41,6 +44,7 @@ const convertirUnidades = (id, valor) => {
 
 /**
  * Convierte un ángulo entre grados y radianes usando Math.PI.
+ * Acepta coma o punto decimal y muestra los resultados con 2 decimales.
  * @method convertirGR
  * @param {string} id - Id del campo que cambió ("grados" o "radianes")
  * @param {string} valor - Valor ingresado por el usuario en ese campo
@@ -49,6 +53,7 @@ const convertirUnidades = (id, valor) => {
 const convertirGR = (id, valor) => {
     // 1. Variables
     let grados, radianes;
+    valor = valor.replace(",", ".");
 
     // 2. Operaciones
     if (isNaN(valor)) {
@@ -56,17 +61,18 @@ const convertirGR = (id, valor) => {
         grados = "";
         radianes = "";
     } else if (id === "grados") {
-        grados = Number(valor);
-        radianes = grados * Math.PI / 180;
+        grados = Number(valor).toFixed(2);
+        radianes = (valor * Math.PI / 180).toFixed(2);
     } else if (id === "radianes") {
-        radianes = Number(valor);
-        grados = radianes * 180 / Math.PI;
+        radianes = Number(valor).toFixed(2);
+        grados = (valor * 180 / Math.PI).toFixed(2);
     }
 
     // 3. Asignación a la UI
     document.getElementById("grados").value = grados;
     document.getElementById("radianes").value = radianes;
 };
+
 /**
  * Muestra u oculta el div según el radio button seleccionado.
  * @method mostrarOcultar
@@ -87,6 +93,7 @@ const mostrarOcultar = (valor) => {
     // 3. Asignación a la UI
     document.getElementById("unDiv").style.display = display;
 };
+
 /**
  * Resuelve una operación matemática cuando ambos inputs tienen un número.
  * Usa la letra de la operación para armar los ids (ej: 's' → nums1, nums2, totalS).
