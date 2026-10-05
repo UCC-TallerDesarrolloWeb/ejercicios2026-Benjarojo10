@@ -61,23 +61,6 @@ const productos = [
     imagen: "protectores-manos.webp",
   },
 ];
-/**
- * Abre el dialog del detalle de producto.
- * @method mostrarDialog
- * @return {void}
- */
-const mostrarDialog = () => {
-    document.getElementById("dialogo").showModal();
-};
-
-/**
- * Cierra el dialog del detalle de producto.
- * @method cerrarDialog
- * @return {void}
- */
-const cerrarDialog = () => {
-    document.getElementById("dialogo").close();
-};
 const URL_IMAGENES = "https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/";
 
 /**
@@ -91,17 +74,54 @@ const renderizarProductos = () => {
     let html = "";
 
     // 2. Operaciones: armo una tarjeta por producto
-    productos.forEach((producto) => {
+    productos.forEach((producto, indice) => {
         html += `
             <div class="tarjeta">
                 <img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
                 <h3>${producto.nombre}</h3>
                 <p class="precio">$${producto.precio}</p>
-                <button class="btn-detalle" onclick="mostrarDialog()">Ver detalle de Producto</button>
+                <button class="btn-detalle" onclick="mostrarDialog(${indice})">Ver detalle de Producto</button>
             </div>
         `;
     });
 
     // 3. Asignación a la UI
     document.getElementById("catalogo").innerHTML = html;
+};
+
+/**
+ * Abre el dialog con el detalle del producto seleccionado.
+ * @method mostrarDialog
+ * @param {number} indice - Posición del producto en el array productos
+ * @return {void}
+ */
+const mostrarDialog = (indice) => {
+    // 1. Variables
+    const producto = productos[indice];
+    let html;
+
+    // 2. Operaciones: armo el contenido del detalle
+    html = `
+        <h2>${producto.nombre}</h2>
+        <img src="${URL_IMAGENES}${producto.imagen}" alt="${producto.nombre}">
+        <p>${producto.description}</p>
+        <p><strong>Categoría:</strong> ${producto.categoria}</p>
+        <p><strong>Marca:</strong> ${producto.marca}</p>
+        <p><strong>Talles:</strong> ${producto.talle.join(", ")}</p>
+        <p class="precio">$${producto.precio}</p>
+        <p><a href="${producto.web}" target="_blank">Ver en la web del fabricante</a></p>
+    `;
+
+    // 3. Asignación a la UI
+    document.getElementById("detalle").innerHTML = html;
+    document.getElementById("dialogo").showModal();
+};
+
+/**
+ * Cierra el dialog del detalle de producto.
+ * @method cerrarDialog
+ * @return {void}
+ */
+const cerrarDialog = () => {
+    document.getElementById("dialogo").close();
 };
