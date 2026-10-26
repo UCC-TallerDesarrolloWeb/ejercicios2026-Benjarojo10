@@ -1,0 +1,30 @@
+@use 'variables' as *;
+
+@media (max-width: $ancho-mobile) {
+    header {
+        flex-direction: column;
+        gap: 20px;
+
+        nav ul {
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+
+    .hero {
+        padding: 40px 25px;
+
+        h1 {
+            font-size: 1.5em;
+        }
+    }
+
+    .portfolio {
+        grid-template-columns: 1fr;
+
+        img {
+            height: 220px;
+        }
+    }
+}
