@@ -1,0 +1,50 @@
+$color-primario: #241866;
+$color-fondo: #f4f4f4;
+
+.actividades {
+    min-height: 100vh;
+    background-color: $color-fondo;
+    padding: 40px;
+
+    h1 {
+        text-align: center;
+        color: $color-primario;
+    }
+}
+
+.actividades-lista {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.activity-card {
+    background-color: #ffffff;
+    width: 280px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    h3 {
+        margin: 0 0 8px;
+        color: $color-primario;
+        text-transform: capitalize;
+    }
+
+    p {
+        margin: 0 0 15px;
+        color: #555555;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            padding: 6px 0;
+            border-top: 1px solid #eeeeee;
+        }
+    }
+}
