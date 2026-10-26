@@ -21,7 +21,10 @@ const activities = [
 
 const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 
-function Actividades() {
+function Actividades({ isLoggedIn }) {
+        const handleInscription = (nombre) => {
+        alert(`Te inscribiste en ${nombre}`);
+    };
     return (
         <div className="actividades">
             <h1>Actividades</h1>
@@ -39,6 +42,11 @@ function Actividades() {
                                     {horario["hora-inicio"]} a {horario["hora-fin"]}
                                 </li>
                             ))}
+                                                    {isLoggedIn && (
+                            <button className="btn-inscribir" onClick={() => handleInscription(actividad.nombre)}>
+                                Inscribirme
+                            </button>
+                        )}
                         </ul>
                     </div>
                 ))}
