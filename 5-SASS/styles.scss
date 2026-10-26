@@ -1,0 +1,31 @@
+@use 'variables' as *;
+@use 'anidados';
+
+// Mixin: recibe color de fondo y color de letra
+@mixin colores($fondo, $texto) {
+    background-color: $fondo;
+    color: $texto;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+header {
+    @include colores($color-primario, $color-claro);
+    padding: 20px;
+    text-align: center;
+}
+
+.destacado {
+    @include colores($color-acento, $color-oscuro);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+footer {
+    @include colores($color-oscuro, $color-claro);
+    text-align: center;
+    padding: 10px;
+}
